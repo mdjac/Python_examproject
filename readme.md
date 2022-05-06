@@ -20,3 +20,9 @@ The main challenges is written in prioritized order below:
 4. Create an illustration containing translated text and related images.
 5. Analyze whether the dish is vegetarian or not.
 6. Create a python backend to execute the application and upload images – instead of running it all        locally with local stored images.
+
+
+## Required libraries.
+Insert below to dockerfile
+- pip install pytesseract
+- apt install tesseract-ocr-all -y (must be run as root)
