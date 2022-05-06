@@ -1,6 +1,7 @@
 import cv2
 import pytesseract
 from tqdm import tqdm
+import numpy as np
 def get_text(image_path,language=None):
     # Read image from which text needs to be extracted
     img = cv2.imread(image_path)
@@ -12,7 +13,7 @@ def get_text(image_path,language=None):
 
     # Performing OTSU threshold
     ret, thresh1 = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
-
+    
     # Specify structure shape and kernel size.
     # Kernel size increases or decreases the area
     # of the rectangle to be detected.
@@ -46,6 +47,9 @@ def get_text(image_path,language=None):
                 
             # Cropping the text block for giving input to OCR
             cropped = img[y:y + h, x:x + w]
+            cropped = cv2.resize(cropped, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+
+            cv2.imwrite("../outputImages/"+str(area)+".png", cropped)
                 
             # Apply OCR on the cropped image
             if(language == None):
