@@ -5,9 +5,10 @@ from Modules import imageProcessingUtility as ipu
 
 
 
-spanish = "../images/Spanish_menucard.jpeg"
+spanish = "../images/Spanish_menucard.jpg"
 spanish2 = "../images/Spanish_menucard2.png"
 spanish3 = "../images/Spanish_menucard3.jpeg"
+
 
 #Cleaner output images
 dir_path = "../outputImages"
