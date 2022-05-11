@@ -1,16 +1,12 @@
 from googletrans import Translator
 
-def translateText(textArr,srcLanguage='es',destLanguage='en'):
+def translateText(textArr,srcLanguage,destLanguage='en'):
     translator = Translator()
-
     for innerArr in textArr:
+        result = translator.translate(innerArr,src=srcLanguage,dest=destLanguage)
         for index, text in enumerate(innerArr):
-            result = translator.translate(text,src=srcLanguage,dest=destLanguage).text
-            innerArr[index] = result
-               
+            innerArr[index] = result[index].text
     return textArr
-
-   
 
 def formatText(textArray):
     result = []
@@ -25,9 +21,9 @@ def formatText(textArray):
                     y = x.replace(",",".")
                     float(y)
                 except:
-                    if not any_curr(x):           
+                    if not any_curr(x) and len(x)>4:           
                         tempArr.append(x)
-                        
+
         if len(tempArr) > 0:
             result.append(tempArr)
     return result
