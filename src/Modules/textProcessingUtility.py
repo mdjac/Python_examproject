@@ -1,4 +1,8 @@
 from googletrans import Translator
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing
+import timeit
+
 
 def translateText(textArr,srcLanguage,destLanguage='en'):
     translator = Translator()

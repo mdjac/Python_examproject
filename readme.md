@@ -27,3 +27,4 @@ Insert below to dockerfile
 - pip install pytesseract
 - apt install tesseract-ocr-all -y (must be run as root)
 - pip install googletrans==3.1.0a0
+- pip install fpdf
