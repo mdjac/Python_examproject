@@ -3,6 +3,7 @@ import os
 import shutil
 from Modules import imageProcessingUtility as ipu
 from Modules import textProcessingUtility as tpu
+from Modules import googleImageSearchUtility as gis
 
 
 
@@ -33,8 +34,7 @@ formattedText = tpu.formatText(tempText_spanish)
 translatedText = tpu.translateText(formattedText,"es","da")
 print(translatedText)
 
-#ipu.get_text(spanish)
-#ipu.get_text(spanish2)
+gis.searchImages("pizza",1)
 
 
 
