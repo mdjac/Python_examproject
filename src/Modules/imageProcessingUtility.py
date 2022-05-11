@@ -5,12 +5,11 @@ from tqdm import tqdm
 import numpy as np
 import cv2
 from scipy.ndimage import interpolation as inter
-from googletrans import Translator
+
 
 
 
 def get_text(image_path,language=None):
-    translator = Translator()
     # Read image from which text needs to be extracted
     img = cv2.imread(image_path)
     base_img = img.copy()
@@ -22,14 +21,13 @@ def get_text(image_path,language=None):
     thresh1 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
     contours = get_contours(gray)
     
-    #Creates array for appending text
-    text_list = []
-
     # Looping through the identified contours
     # Then rectangular part is cropped and passed on
     # to pytesseract for extracting text from it
     # Extracted text is then written into the text file
-    test = []
+
+    #Creates array for appending text
+    result = []
     
     for cnt in tqdm(contours):
         #Use area to sort out small/invalid crops in picture
@@ -51,7 +49,7 @@ def get_text(image_path,language=None):
             thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
             
             #visual of image feeded to tesseract
-            cv2.imwrite("../outputImages/"+str(area)+".png", thresh)
+            #cv2.imwrite("../outputImages/"+str(area)+".png", thresh)
             
             # Drawing a bounding rectangle on copied image
             cv2.rectangle(base_img, (x, y), (x + w, y + h), (0, 255, 160), 2)
@@ -63,21 +61,11 @@ def get_text(image_path,language=None):
                 text = pytesseract.image_to_string(thresh, lang=language)
             #split text on backslash n
             
-            test.append(text)
-            text = text.split('\n')
-            for t in text:
-                t = t.strip()
-                #only add if not empty
-                if t != '':
-                    if type(t) == str:
-                        text_list.append(t+" - "+translator.translate(t, dest='en').text)
-            
-    
-    
+            result.append(text)
     image_name = image_path.split('/')[-1]
     cv2.imwrite('../outputImages/'+image_name, base_img)
     #Reverses to get text in correct order
-    return text_list[::-1]
+    return result[::-1]
 
 
 def get_contours(gray_image):

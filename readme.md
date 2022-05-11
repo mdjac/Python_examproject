@@ -26,3 +26,4 @@ The main challenges is written in prioritized order below:
 Insert below to dockerfile
 - pip install pytesseract
 - apt install tesseract-ocr-all -y (must be run as root)
+- pip install googletrans==4.0.0rc1
