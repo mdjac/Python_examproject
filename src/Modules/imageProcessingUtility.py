@@ -1,38 +1,35 @@
 import cv2
 import pytesseract
-from pytesseract import Output
-from tqdm import tqdm
 import numpy as np
 import cv2
 from scipy.ndimage import interpolation as inter
+from concurrent.futures import ProcessPoolExecutor
+import multiprocessing
+from p_tqdm import p_map
+import timeit
 
+#To avoid any racecondition with tesseract
+import os
+os.environ['OMP_THREAD_LIMIT'] = '1'
 
 
 
 def get_text(image_path,language=None):
+    start = timeit.default_timer()
     # Read image from which text needs to be extracted
     img = cv2.imread(image_path)
     base_img = img.copy()
 
     # Preprocessing the image starts
-
     # Convert the image to gray scale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    thresh1 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
     contours = get_contours(gray)
     
-    # Looping through the identified contours
-    # Then rectangular part is cropped and passed on
-    # to pytesseract for extracting text from it
-    # Extracted text is then written into the text file
-
-    #Creates array for appending text
-    result = []
-    
-    for cnt in tqdm(contours):
+    def get_text_from_contours(cnt,):
         #Use area to sort out small/invalid crops in picture
         area = cv2.contourArea(cnt)
         if(area < 20000 and area > 400):
+          
             x,y,w,h = cv2.boundingRect(cnt)
                 
             # Cropping the text block for giving input to OCR
@@ -49,9 +46,9 @@ def get_text(image_path,language=None):
             thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
             
             #visual of image feeded to tesseract
-            #cv2.imwrite("../outputImages/"+str(area)+".png", thresh)
+            cv2.imwrite("../outputImages/"+str(area)+".png", thresh)
             
-            # Drawing a bounding rectangle on copied image
+            # Drawing a bounding rectangle on copied image (NOT WORKING WITH MULTIPROCESS - RACE CONDITION)
             cv2.rectangle(base_img, (x, y), (x + w, y + h), (0, 255, 160), 2)
                 
             # Apply OCR on the cropped image
@@ -59,18 +56,43 @@ def get_text(image_path,language=None):
                 text = pytesseract.image_to_string(thresh)
             else:
                 text = pytesseract.image_to_string(thresh, lang=language)
-            #split text on backslash n
-            
-            result.append(text)
+           
+            return text
+
+    #Creates array for appending text
+    result = []
+    
+    # Looping through the identified contours
+    # Then rectangular part is cropped and passed on
+    # to pytesseract for extracting text from it
+    # Extracted text is then written into the text file
+   
+    #Standard slow way
+    #for cnt in contours:
+    #    result.append(get_text_from_contours(cnt))
+    
+    #Multiprocess 
+    result = p_map(get_text_from_contours,contours)
+
+  
     image_name = image_path.split('/')[-1]
+
+    #Green boxes does not come on when multiprocessing because of race condition
     cv2.imwrite('../outputImages/'+image_name, base_img)
+    
+
+    # to remove any None values in list
+    result = [i for i in result if i]
+
+    stop = timeit.default_timer()
+    print('Time with multi process: ', stop - start)
+
     #Reverses to get text in correct order
     return result[::-1]
 
 
 def get_contours(gray_image):
     #Preprocess to make textareax float together
-    blur = cv2.GaussianBlur(gray_image,(7,7),0)
     thresh = cv2.threshold(gray_image, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)[1]
     cv2.imwrite('../outputImages/thresh.jpg', thresh)
     
@@ -116,3 +138,5 @@ def correct_skew(image, delta=1, limit=5):
               borderMode=cv2.BORDER_REPLICATE)
 
     return best_angle, rotated
+
+

@@ -1,4 +1,4 @@
-from google_images_search import GoogleImagesSearch
+#from google_images_search import GoogleImagesSearch
 from io import BytesIO
 from PIL import Image
 import cv2

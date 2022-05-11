@@ -14,7 +14,7 @@ spanish = "../images/Spanish_menucard.jpg"
 spanish2 = "../images/Spanish_menucard2.png"
 spanish3 = "../images/Spanish_menucard3.jpeg"
 
-
+start1 = timeit.default_timer()
 #Cleaner folders
 outputImages = "../outputImages"
 temp_search_images = "../temp_search_images"
@@ -62,7 +62,8 @@ print("-----------------------------------------------------")
 translatedText = tpu.translateText(formattedText,"es","da")
 print("TRANSLATED TEXT!")
 pprint(translatedText)
-
+stop1 = timeit.default_timer()
+print('Time with multi process total: ', stop1 - start1)
 
 
 
