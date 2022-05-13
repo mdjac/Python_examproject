@@ -25,7 +25,8 @@ def get_text(image_path,language=None):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     contours = get_contours(gray)
     
-    def get_text_from_contours(cnt,):
+    #This function is to stay in the get_text function as we are using variables like img and base_img
+    def get_text_from_contours(cnt):
         #Use area to sort out small/invalid crops in picture
         area = cv2.contourArea(cnt)
         if(area < 20000 and area > 400):
@@ -59,8 +60,8 @@ def get_text(image_path,language=None):
            
             return text
 
-    #Creates array for appending text
-    result = []
+    #Creates array for appending text - only used if using old traditional way
+    #result = []
     
     # Looping through the identified contours
     # Then rectangular part is cropped and passed on
