@@ -37,10 +37,16 @@ def createPDF(dataArr):
         #Loop pictures
         try:
             files =  os.listdir(dirPath)
-            
+            print("files: ----> ",files)
             for index, f in enumerate(files):
                 print(dirPath+f)
-                pdf.image(dirPath+f, x=10+(width+5)*index, y=pdf.get_y(), h=height, w=width)
+                try:
+                    pdf.image(dirPath+f, x=10+(width+5)*index, y=pdf.get_y(), h=height, w=width)
+                except:
+                    pass
+                    pdf.image("./Modules/NO_IMAGE.jpg", x=10+(width+5)*index, y=pdf.get_y(), h=height, w=width)
+                    
+                
         except:
             pass
         
