@@ -37,3 +37,4 @@ Insert below to dockerfile
 - pip install fpdf
 - pip install icrawler
 - pip install p_tqdm
+- pip install iso639-lang

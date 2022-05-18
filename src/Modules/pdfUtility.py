@@ -10,17 +10,18 @@ width = config.pdf_settings['image_width']
 
 def createPDF(dataArr):
     pdf = FPDF()
-    pdf.add_font("Arial", "", "./Modules/fonts/arial.ttf", uni=True)
+    pdf.add_font("Arial", "", "./Modules/arial.ttf", uni=True)
+    pdf.add_font("Arial", style="B", fname="./Modules/arial_bold.ttf", uni=True)
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin = 65.0)
 
     for index, item in enumerate(tqdm(dataArr)):
-        pdf.set_font("Arial", "B",size = config.pdf_settings['heading_size'] )
-        pdf.cell(0,h=5, txt=item.get('original')[0] + " / "+item.get('translated')[0],ln=1)
+        pdf.set_font("Arial","B",size = config.pdf_settings['heading_size'] )
+        pdf.multi_cell(0,h=5, txt=u""+item.get('original')[0] + " / "+item.get('translated')[0])
        
         if (len(item.get('original')) >1):
             pdf.set_font("Arial", size = config.pdf_settings['paragraph_size'] )
-            pdf.multi_cell(0,h=5, txt=" ".join(item.get('original')[1:]) + " / "+" ".join(item.get('translated')[1:]))
+            pdf.multi_cell(0,h=5, txt=u" ".join(item.get('original')[1:]) + " / "+" ".join(item.get('translated')[1:]))
             
             
         else:

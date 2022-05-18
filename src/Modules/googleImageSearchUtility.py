@@ -24,7 +24,7 @@ class My_image_downloader(ImageDownloader):
     
 
 
-def downloadImages(keyword, courseIndex, number=config.image_downloader['standard_pictures_amount']):
+def downloadImages(keyword, courseIndex, number):
     google_crawler = GoogleImageCrawler(downloader_cls=My_image_downloader, downloader_threads=number, storage={'root_dir': "../temp_search_images/"+str(courseIndex)+"/"}, log_level=100)
     google_crawler.crawl(keyword=keyword, max_num=number)
 
