@@ -3,8 +3,10 @@ from concurrent.futures import ProcessPoolExecutor
 import multiprocessing
 import timeit
 from tqdm import tqdm
+import config
 
-def translateText(textArr,srcLanguage,destLanguage='en'):
+
+def translateText(textArr,srcLanguage,destLanguage=config.textProcessing['standard_output_language']):
     translator = Translator()
     resultArr = []
     for innerArr in tqdm(textArr):
@@ -41,5 +43,5 @@ def formatText(textArray):
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
 
-def any_curr(s, curr="¥$€£"):
+def any_curr(s, curr=config.textProcessing['currencies']):
     return any(c in s for c in curr)

@@ -2,12 +2,11 @@ from fpdf import FPDF
 from PIL import Image
 import os, os.path
 from tqdm import tqdm
+import config
   
-  
-# save FPDF() class into a 
-# variable pdf
-height = 25
-width = 25
+
+height = config.pdf_settings['image_height']  
+width = config.pdf_settings['image_width']  
 
 def createPDF(dataArr):
     pdf = FPDF()
@@ -15,16 +14,12 @@ def createPDF(dataArr):
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin = 65.0)
 
-    pdf.set_font("Arial", "B",size = 12, )
-    
     for index, item in enumerate(tqdm(dataArr)):
-        pdf.set_font("Arial", size = 15)
+        pdf.set_font("Arial", "B",size = config.pdf_settings['heading_size'] )
         pdf.cell(0,h=5, txt=item.get('original')[0] + " / "+item.get('translated')[0],ln=1)
        
-        #pdf.cell(10, 30, txt = item.get('original')[0] + " / "+item.get('translated')[0], 
-        #    ln = 1, align = 'L')
         if (len(item.get('original')) >1):
-            pdf.set_font("Arial", size = 10)
+            pdf.set_font("Arial", size = config.pdf_settings['paragraph_size'] )
             pdf.multi_cell(0,h=5, txt=" ".join(item.get('original')[1:]) + " / "+" ".join(item.get('translated')[1:]))
             
             
@@ -45,9 +40,6 @@ def createPDF(dataArr):
                 
         except:
             pass
-        
-                #pdf.image(os.path(f), x=(width+5)*index, y=pdf.get_y(), h=height, w=width)
-        #pdf.image("../temp_search_images/1/L2VzbmdkZ1U4Zmd3Mm5LOVYxLlc3aUFfYi5qcGc=.jpg", x=10+width+5, y=pdf.get_y(), h=height, w=width)
         pdf.ln(40)
         
     

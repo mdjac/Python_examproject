@@ -3,10 +3,8 @@ import pytesseract
 import numpy as np
 import cv2
 from scipy.ndimage import interpolation as inter
-from concurrent.futures import ProcessPoolExecutor
-import multiprocessing
 from p_tqdm import p_map
-import timeit
+
 
 #To avoid any racecondition with tesseract
 import os
@@ -15,7 +13,7 @@ os.environ['OMP_THREAD_LIMIT'] = '1'
 
 
 def get_text(image_path,language=None):
-    start = timeit.default_timer()
+ 
     # Read image from which text needs to be extracted
     img = cv2.imread(image_path)
     base_img = img.copy()
@@ -85,9 +83,6 @@ def get_text(image_path,language=None):
 
     # to remove any None values in list
     result = [i for i in result if i]
-
-    stop = timeit.default_timer()
-    print('Time with multi process: ', stop - start)
 
     #Reverses to get text in correct order
     return result[::-1]
