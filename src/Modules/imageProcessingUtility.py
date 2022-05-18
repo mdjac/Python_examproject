@@ -60,8 +60,7 @@ def get_text(image_path,language=None):
            
             return text
 
-    #Creates array for appending text - only used if using old traditional way
-    #result = []
+    
     
     # Looping through the identified contours
     # Then rectangular part is cropped and passed on
@@ -69,6 +68,8 @@ def get_text(image_path,language=None):
     # Extracted text is then written into the text file
    
     #Standard slow way
+    #Creates array for appending text - only used if using old traditional way
+    #result = []
     #for cnt in contours:
     #    result.append(get_text_from_contours(cnt))
     

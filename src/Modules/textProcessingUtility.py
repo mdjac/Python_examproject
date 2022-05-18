@@ -2,12 +2,12 @@ from googletrans import Translator
 from concurrent.futures import ProcessPoolExecutor
 import multiprocessing
 import timeit
-
+from tqdm import tqdm
 
 def translateText(textArr,srcLanguage,destLanguage='en'):
     translator = Translator()
     resultArr = []
-    for innerArr in textArr:
+    for innerArr in tqdm(textArr):
         result = translator.translate(innerArr,src=srcLanguage,dest=destLanguage)
         resultInner = []
         for text in result:
