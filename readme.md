@@ -75,6 +75,14 @@ Please add below to the standard dockerfile:
 3. Once code is finished, open `result.pdf` in your favorite PDF viewer
 ## 6. Status (What has been done (and if anything: what was not done))
  We reached the main goals of the project set from the beginning, but did not manage to do the "nice to have" features.
+
+ - :white_check_mark: Read the picture and convert it to text.
+ - :white_check_mark: Translate the text to English or possibly a user preferred language.
+ - :white_check_mark: Find online images of the dishes.
+ - :white_check_mark: Create an illustration containing translated text and related images.
+ - :x: Analyze whether the dish is vegetarian or not.
+ - :x: Create a python backend to execute the application and upload images instead of running it all locally with local stored images.
+
  So we have built a CLI application that takes 3 mandatory arguments and 1 optional argument:
 
  **Mandatory:**
@@ -87,12 +95,6 @@ Please add below to the standard dockerfile:
 
 Then we are pre-processing the image, analyzing it for text, pre-processing the text, finding dishes based on the text and translating the text before finally building the output PDF.
 
-- :white_check_mark: Read the picture and convert it to text.
-- :white_check_mark: Translate the text to English or possibly a user preferred language.
-- :white_check_mark: Find online images of the dishes.
-- :white_check_mark: Create an illustration containing translated tex and related images.
-- :x: Analyze whether the dish is vegetarian or not.
-- :x: Create a python backend to execute the application and upload images instead of running it all locally with local stored images.
 
 ## 7. List of Challenges you have set up for your self (The things in your project you want to highlight)
 
