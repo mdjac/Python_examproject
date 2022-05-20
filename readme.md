@@ -87,12 +87,12 @@ Please add below to the standard dockerfile:
 
 Then we are pre-processing the image, analyzing it for text, pre-processing the text, finding dishes based on the text and translating the text before finally building the output PDF.
 
-:white_check_mark: Read the picture and convert it to text.
-:white_check_mark: Translate the text to English or possibly a user preferred language.
-:white_check_mark: Find online images of the dishes.
-:white_check_mark: Create an illustration containing translated text and related images.
-:x: Analyze whether the dish is vegetarian or not.
-:x: Create a python backend to execute the application and upload images – instead of running it all locally with local stored images.
+- :white_check_mark: Read the picture and convert it to text.
+- :white_check_mark: Translate the text to English or possibly a user preferred language.
+- :white_check_mark: Find online images of the dishes.
+- :white_check_mark: Create an illustration containing translated tex and related images.
+- :x: Analyze whether the dish is vegetarian or not.
+- :x: Create a python backend to execute the application and upload images instead of running it all locally with local stored images.
 
 ## 7. List of Challenges you have set up for your self (The things in your project you want to highlight)
 
