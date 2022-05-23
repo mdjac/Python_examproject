@@ -4,24 +4,24 @@ Menucard translator & visualizer
 We have experienced that some places abroad doesn’t have menu cards in a language that you understand, and you end up using google translate for every dish – which is time consuming.
 We have therefore built an application that analyzes the text, finds illustrations of each dish and translates the text to a user specified language and consolidates it into a single PDF file.
 ## 3. List of used technologies
-* Python
-* tesseract
+* pytesseract
+* argparse
 * tqdm
 * p_tqdm
-* OpenCV
-* Multiprocessing
-* Numpy
-* Pandas
+* openCV
+* multiprocessing
+* numpy
 * iso639
 * Googletrans
 * fpdf
 * cv2
 * icrawler
+* timeit
 ## 4. Installation guide (if any libraries need to be installed)
-Based on the assumption that you are running the standard docker build for the Python course..
+Based on the assumption that you are running the standard docker build for the Python course.
 Please add below to the standard dockerfile:
 * `pip install pytesseract`
-* `apt install tesseract-ocr-all -y` (must be run as root)
+* `apt install tesseract-ocr-all -y` (must be run as root `USER root`)
 * `pip install googletrans==3.1.0a0`
 * `pip install fpdf`
 * `pip install icrawler`
@@ -30,7 +30,7 @@ Please add below to the standard dockerfile:
 ## 5. User guide (how to run the program)
  1. Go to `src` folder
  2. execute `python main.py -h` and follow instructions
-3. Once code is finished, open `result.pdf` in your favorite PDF viewer
+ 3. Once code is finished, open `src/result.pdf` in your favorite PDF viewer
 ## 6. Status (What has been done (and if anything: what was not done))
  We reached the main goals of the project set from the beginning, but did not manage to do the "nice to have" features.
 
@@ -51,11 +51,17 @@ Please add below to the standard dockerfile:
  **Optional:**
   1. `-a` OR `--pic_amount` (The number of pictures you want of each dish)
 
-Then we are pre-processing the image, analyzing it for text, pre-processing the text, finding dishes based on the text and translating the text before finally building the output PDF.
+Then we are pre-processing the image, analyzing it for text, pre-processing the text, finding dish illustrations and translating the text before finally building the output PDF.
 
 
 ## 7. List of Challenges you have set up for your self (The things in your project you want to highlight)
 
-TBD
+ - Highly accurate text analyzing improved by image pre-processing
+ - Program execution time optimized to 1/3 time with multiprocessing
+ - Config file to maintain programs static values
+ - Program documentation written via argparse (--help)
+ - pytest showcased for parts of application
+ - Building of PDF to gather results with visuals
+ - Good results with different layout & languages of menucards
 
 
