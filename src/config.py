@@ -4,7 +4,7 @@ textProcessing = dict(
 )
 
 image_downloader = dict(
-    standard_pictures_amount = 3,
+    standard_pictures_amount = 2,
 )
 
 pdf_settings = dict(

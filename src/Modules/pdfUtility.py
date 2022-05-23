@@ -35,7 +35,7 @@ def createPDF(dataArr):
                 try:
                     pdf.image(dirPath+f, x=10+(width+5)*index, y=pdf.get_y(), h=height, w=width)
                 except:
-                    pass
+                    #pass
                     pdf.image("./Modules/NO_IMAGE.jpg", x=10+(width+5)*index, y=pdf.get_y(), h=height, w=width)
                     
                 
